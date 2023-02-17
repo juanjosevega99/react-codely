@@ -18,14 +18,33 @@ export function Dashboard() {
         {githubApiResponses.map((widget) => (
           <article className={styles.widget} key={widget.repositoryData.id}>
             <header>
-              <a href={widget.repositoryData.html_url}>
-                {widget.repositoryData.private ? (
-                  <img alt="icon" src={lock} />
-                ) : (
-                  <img alt="icon" src={unlock} />
-                )}
+              <a
+                className={styles.widget_title}
+                href={widget.repositoryData.html_url}
+                target="_blank"
+                title={`${widget.repositoryData.organization.login}/${widget.repositoryData.name}`}
+                rel="noreferrer"
+              >
+                {widget.repositoryData.organization.login}/
+                {widget.repositoryData.name}
               </a>
+              {widget.repositoryData.private ? (
+                <img alt="icon" src={lock} />
+              ) : (
+                <img alt="icon" src={unlock} />
+              )}
             </header>
+            <div className={styles.widget_body}>
+              <div className={styles.widget_status}>
+                <p></p>
+
+                  <div>
+                  </div>
+
+                
+              </div>
+              <p></p>
+            </div>
           </article>
         ))}
       </section>
