@@ -32,9 +32,9 @@ export function Dashboard() {
   return (
     <>
       <header className={styles.header}>
-        <section className={styles.header_container}>
+        <section className={styles.header__container}>
           <img src={brand} alt="" />
-          <h1 className={styles.app_brand}>DevDash</h1>
+          <h1 className={styles.app__brand}>DevDash</h1>
         </section>
       </header>
       <section className={styles.container}>
@@ -73,29 +73,29 @@ export function Dashboard() {
                   </div>
                 )}
               </div>
-              <p className={styles.widget_description}>
+              <p className={styles.widget__description}>
                 {widget.repositoryData.description}
               </p>
             </div>
-            <footer className={styles.widget_footer}>
-              <div className={styles.widget_stat}>
+            <footer className={styles.widget__footer}>
+              <div className={styles.widget__stat}>
                 <img src={start} alt="" />
                 <span>{widget.repositoryData.stargazers_count}</span>
               </div>
 
-              <div className={styles.widget_stat}>
+              <div className={styles.widget__stat}>
                 <img src={watchers} alt="" />
                 <span>{widget.repositoryData.watchers_count}</span>
               </div>
-              <div className={styles.widget_stat}>
+              <div className={styles.widget__stat}>
                 <img src={forks} alt="" />
                 <span>{widget.repositoryData.forks_count}</span>
               </div>
-              <div className={styles.widget_stat}>
+              <div className={styles.widget__stat}>
                 <img src={issueOpened} alt="" />
                 <span>{widget.repositoryData.open_issues_count}</span>
               </div>
-              <div className={styles.widget_stat}>
+              <div className={styles.widget__stat}>
                 <img src={pullRequest} alt="" />
                 <span>{widget.pullRequest.length}</span>
               </div>
