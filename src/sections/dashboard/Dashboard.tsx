@@ -4,6 +4,29 @@ import styles from "./Dashboard.module.scss";
 import brand from "./brand.svg";
 import unlock from "./unlock.svg";
 import lock from "./lock.svg";
+import error from "./error.svg";
+import check from "./check.svg";
+import start from "./start.svg";
+import watchers from "./watchers.svg";
+import forks from "./repo-forked.svg";
+import issueOpened from "./issue-opened.svg";
+import pullRequest from "./pull-request.svg";
+
+const isoToReadableDate = (lastUpdate: string): string => {
+  const lastUpdateDate = new Date(lastUpdate);
+  const currentDate = new Date();
+  const diffDays = currentDate.getDate() - lastUpdateDate.getDate();
+
+  if (diffDays === 0) {
+    return "today";
+  }
+
+  if (diffDays > 30) {
+    return "more than a month ago";
+  }
+
+  return `${diffDays} days ago`;
+};
 
 export function Dashboard() {
   return (
@@ -11,15 +34,15 @@ export function Dashboard() {
       <header className={styles.header}>
         <section className={styles.header_container}>
           <img src={brand} alt="" />
-          <h1>DevDash</h1>
+          <h1 className={styles.app_brand}>DevDash</h1>
         </section>
       </header>
       <section className={styles.container}>
         {githubApiResponses.map((widget) => (
           <article className={styles.widget} key={widget.repositoryData.id}>
-            <header>
+            <header className={styles.widget_header}>
               <a
-                className={styles.widget_title}
+                className={styles.widget__title}
                 href={widget.repositoryData.html_url}
                 target="_blank"
                 title={`${widget.repositoryData.organization.login}/${widget.repositoryData.name}`}
@@ -34,17 +57,49 @@ export function Dashboard() {
                 <img alt="icon" src={unlock} />
               )}
             </header>
-            <div className={styles.widget_body}>
-              <div className={styles.widget_status}>
-                <p></p>
-
+            <div className={styles.widget__body}>
+              <div className={styles.widget__status}>
+                <p>
+                  Last update
+                  {` ${isoToReadableDate(widget.repositoryData.updated_at)}`}
+                </p>
+                {widget.CiStatus.workflow_runs.length > 0 && (
                   <div>
+                    {widget.CiStatus.workflow_runs[0].status === "completed" ? (
+                      <img alt="icon" src={check} />
+                    ) : (
+                      <img alt="icon" src={error} />
+                    )}
                   </div>
-
-                
+                )}
               </div>
-              <p></p>
+              <p className={styles.widget_description}>
+                {widget.repositoryData.description}
+              </p>
             </div>
+            <footer className={styles.widget_footer}>
+              <div className={styles.widget_stat}>
+                <img src={start} alt="" />
+                <span>{widget.repositoryData.stargazers_count}</span>
+              </div>
+
+              <div className={styles.widget_stat}>
+                <img src={watchers} alt="" />
+                <span>{widget.repositoryData.watchers_count}</span>
+              </div>
+              <div className={styles.widget_stat}>
+                <img src={forks} alt="" />
+                <span>{widget.repositoryData.forks_count}</span>
+              </div>
+              <div className={styles.widget_stat}>
+                <img src={issueOpened} alt="" />
+                <span>{widget.repositoryData.open_issues_count}</span>
+              </div>
+              <div className={styles.widget_stat}>
+                <img src={pullRequest} alt="" />
+                <span>{widget.pullRequest.length}</span>
+              </div>
+            </footer>
           </article>
         ))}
       </section>
