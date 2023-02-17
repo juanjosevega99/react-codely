@@ -40,7 +40,7 @@ export function Dashboard() {
       <section className={styles.container}>
         {githubApiResponses.map((widget) => (
           <article className={styles.widget} key={widget.repositoryData.id}>
-            <header className={styles.widget_header}>
+            <header className={styles.widget__header}>
               <a
                 className={styles.widget__title}
                 href={widget.repositoryData.html_url}
